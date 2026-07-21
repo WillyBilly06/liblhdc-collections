@@ -127,7 +127,7 @@ I (25264) RC_CT: AVRC event notification: 5
 | Project | 属性 | 简介 |
 |---------|-----|------|
 | LHDC-V5-Decoder | LHDC V5 Decoder | 由 [WillyBilly06](https://github.com/WillyBilly06) 从零开始构建的LHDC V5解码器源码，我已在 ESP32 验证其真实有效且足够稳定。据观测，这是开源的第一份功能有效的LHDC V5解码器。最新内容请访问：[WillyBilly06/LHDC-V5-Decoder](https://github.com/WillyBilly06/LHDC-V5-Decoder) |
-| lhdcv5 | LHDC V5 Encoder | 由Google开源的LHDC V5 编码器，由Rust编写，适用于Android 17，暂未验证可行性。正常来说，可以逆向为C格式的编解码器。据观测，这是开源的第一份内容较为完整的LHDC V5编码器。最新内容请访问：[lhdcv5](https://android.googlesource.com/platform/packages/modules/Bluetooth/+/refs/heads/android17-release/system/audio/codecs/lhdcv5) |
+| lhdcv5 | LHDC V5 Encoder | 由Google开源的LHDC V5 编码器，由Rust编写，适用于Android 17，从内容来看其是编码器的完整实现，不依赖任何外部库，不过暂未验证可行性。正常来说，可以逆向为C格式的编解码器。据观测，这是开源的第一份内容功能完整的LHDC V5编码器。最新内容请访问：[lhdcv5](https://android.googlesource.com/platform/packages/modules/Bluetooth/+/refs/heads/android17-release/system/audio/codecs/lhdcv5) |
 | BES-IHC | 包含.a格式静态库 | 适用于BES的LHDC[V5]库，包含.a静态库和头文件，完整SDK详见[audio_prj_collections](https://github.com/sprlightning/audio_prj_collections) |
 | AOSP | 包含.so动态库 | 适用于AOSP的的LHDC[V5]库，就decoder而言，除了无解码算法源文件（lhdcv5_util_dec.c），其余源文件及头文件是完整的；此外也包含提取自XIAOMI HyperOS 2.0.211.0的".so"动态库 |
 | ESP-IDF | ESP-IDF Integration | 包含适用于ESP-IDF的移植版[liblhdcv5dec](https://github.com/sprlightning/liblhdcv5dec)和lhdcv5 decoder，均具备完整的源文件和头文件，均移植于AOSP，使用LHDCV5协商后，可听到正弦波生成的标准音；其中lhdcv5_util_dec.c仅具备解码函数占位的作用，仅供参考 |
@@ -535,7 +535,7 @@ typedef struct {
 			test_roundtrip.py
 	```
 	
-- 目录 **lhdcv5**，由Google开源的LHDC V5 编码器，由Rust编写，适用于Android 17，暂未验证可行性。正常来说，可以逆向为C格式的编解码器。据观测，这是开源的第一份内容较为完整的LHDC V5编码器。
+- 目录 **lhdcv5**，由Google开源的LHDC V5 编码器，由Rust编写，适用于Android 17，从内容来看其是编码器的完整实现，不依赖任何外部库，不过暂未验证可行性。正常来说，可以逆向为C格式的编解码器。据观测，这是开源的第一份内容功能完整的LHDC V5编码器。
 
 	> 这里收录的是编码器的备份，最新内容请访问 [lhdcv5](https://android.googlesource.com/platform/packages/modules/Bluetooth/+/refs/heads/android17-release/system/audio/codecs/lhdcv5)。
 
@@ -758,4 +758,4 @@ ESP-IDF的bluedroid-stack有一个存储codec能力的CIE结构体（位于esp_a
 
 LHDCV5的外部库一直是闭源以so或者a文件流传，即使是高度开源的AOSP，也只得到了lhdcv5BT_dec.c/.h + lhdcv5_util_dec.h这3个文件，缺乏包含LHDCV5解码算法的lhdcv5_util_dec.c；可以依据lhdcv5_util_dec.h声明函数的参数逆推出lhdcv5_util_dec.c，但是如前面所说，因为不知道LHDCV5解码算法，所以我只是用正弦波替换了解码函数，当然连接后听到的也只是正弦波生成的标准音。
 
-常规思路是用（IDA Pro）逆向Android LHDCV5动态库（liblhdcv5.so）或BES的静态库来推导出LHDCV5的解码算法（我不会操作）；还有就是等待大佬开源，很幸运等到了： `WillyBilly06` 的 LHDC V5 解码器和 `Google` 的 lhdcv5 编码器就是这一环节至关重要的内容。
+常规思路是用（IDA Pro）逆向Android LHDCV5动态库（liblhdcv5.so）或BES的静态库来推导出LHDCV5的解码算法（我不会操作）；还有就是等待大佬开源，很幸运等到了： `WillyBilly06` 的 LHDC V5 解码器和 `Google` 的 lhdcv5 编码器就是这一环节至关重要的内容，尤其是 `Google` 的 lhdcv5 编码器，它比前者更完整。
