@@ -150,6 +150,9 @@ lhdc_dec_ret_t lhdc_dec_get_config(lhdc_decoder_t *dec, lhdc_dec_config_t *confi
  */
 const char *lhdc_dec_strerror(lhdc_dec_ret_t ret);
 
+/* Free the module-static KBD analysis window (call at decoder teardown). */
+void lhdc_dec_free_window(void);
+
 #ifdef __cplusplus
 }
 #endif

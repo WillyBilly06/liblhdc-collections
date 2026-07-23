@@ -39,4 +39,7 @@ void lhdc_imdct_free_480(void);
  */
 void lhdc_imdct_free_1920(void);
 
+/* Free the reference-IMDCT cosine table (~30 KB). Call at decoder teardown. */
+void lhdc_imdct_free_cos(void);
+
 #endif /* LHDC_IMDCT_H */
